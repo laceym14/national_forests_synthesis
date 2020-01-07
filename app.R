@@ -41,7 +41,7 @@ ui <- fluidPage(theme = "leaflet_adj.css",
       h1(textOutput("nf")),
       br(),
       p(strong("Species of Interest:"), (textOutput("sp"))),
-      imageOutput("imgID", width = "100%", height = "400px", inline = FALSE),
+      imageOutput("image", width = "100%", height = "200px", inline = FALSE),
       #br(),
       #em("Image credit:", textOutput("imgcred")),
       #br(),
@@ -76,9 +76,10 @@ server <- function(input, output) {
     imgcred_select <- polygon_select$CRED
     species_select <- polygon_select$SP_OF_INT
     output$nf <- renderText({paste(forest_select)})
-    output$img <- renderImage({paste(src = img_select,
-                                       width = 300,
-                                       height = 300)})
+    #output$img <- renderImage({paste(src = img_select,
+     #                                  width = 300,
+      #                                 height = 300)})
+    output$image <- renderText(paste0("<img style=max-height:200px;max-width:100%; src=", polygon_select$IMG, "' />"))
     output$imgID <- renderImage(normalizePath(file.path('./images/', paste('image', imgID_select, '.jpg', sep=''))), deleteFile = FALSE)
     output$imgcred <- renderText({paste(imgcred_select)})
     output$text <- renderText({paste(text_select)})
