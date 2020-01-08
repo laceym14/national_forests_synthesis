@@ -35,20 +35,27 @@ ui <- fluidPage(theme = "leaflet_adj.css",
   column(3,textOutput("testHTML")),
   br(),
   sidebarLayout(
-    sidebarPanel(
+    sidebarPanel( #come up with some sort of if nothing selected, then...
       br(),
       p(strong("Click on each National Forest"), "on the map to learn more about Defenders' work there!"),
       h1(textOutput("nf")),
       br(),
-      p(strong("Species of Interest:"), (textOutput("sp"))),
-      imageOutput("image", width = "100%", height = "200px", inline = FALSE),
+      #h4(strong("Species of Interest:")),
+      h4(textOutput("spint")),   # Testing out blank side panel if nothing selected
+      p(textOutput("sp")),
+      htmlOutput("image", inline = FALSE),
+      #uiOutput("image"),
+      #(imageOutput("image", width = "100%", height = "200px", inline = FALSE)),
+      #imageOutput("<img style=max-height:200px;max-width:100%; src=img' />", inline = FALSE),
       #br(),
       #em("Image credit:", textOutput("imgcred")),
       #br(),
-      p(strong("What We Are Defending:"), (textOutput("text"))),
+      h4(strong("What We Are Defending:")),
+      p(textOutput("text")),
       #em(textOutput("sciname")),
       br(),
-      p(strong("What You Can Do:"), (textOutput("todo"))),
+      h4(strong("What You Can Do:")),
+      p(textOutput("todo")),
       br(),
       #p(textOutput("text")),
       width = 3),
@@ -76,15 +83,22 @@ server <- function(input, output) {
     imgcred_select <- polygon_select$CRED
     species_select <- polygon_select$SP_OF_INT
     output$nf <- renderText({paste(forest_select)})
-    #output$img <- renderImage({paste(src = img_select,
-     #                                  width = 300,
-      #                                 height = 300)})
-    output$image <- renderText(paste0("<img style=max-height:200px;max-width:100%; src=", polygon_select$IMG, "' />"))
+    output$img <- renderImage({paste(src = img_select)})
+    #output$image <- renderText(paste0("<img style=max-height:200px;max-width:100%; src=", img_select, "' />"))
+    #src = img_select
+    output$image <-renderText({c("<img style=max-height:200px;max-width:300px; src=", img_select,"'/>")})
     output$imgID <- renderImage(normalizePath(file.path('./images/', paste('image', imgID_select, '.jpg', sep=''))), deleteFile = FALSE)
     output$imgcred <- renderText({paste(imgcred_select)})
     output$text <- renderText({paste(text_select)})
     output$todo <- renderText({paste(todo_select)})
     output$sp <- renderText({paste(species_select)})
+    output$spint <- renderPrint({
+      if (length(click_loc) > 0) {
+        "Species of Interest:"
+      } else {
+        ""
+      }
+    })
 
   })
 
