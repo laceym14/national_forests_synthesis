@@ -115,7 +115,7 @@ server <- function(input, output) {
   output$map <- renderLeaflet({
     leaflet(states)  %>% addTiles() %>% setView(lng = -87.251475, lat=39.835402,zoom=4) %>%
       addProviderTiles(providers$Esri.WorldTerrain) %>%
-      addPolygons(data=states,weight=1, smoothFactor = 0.5, col="grey", fillColor = "rgba(255,255,255,0)",
+      addPolygons(data=states,weight=0.25, smoothFactor = 0.5, col="grey", fillColor = "rgba(255,255,255,0)",
                   popup = pop_up_layout,
                   fillOpacity = 0.75) %>%
       addPolygons(data=mergenf,weight=1, smoothFactor = 0.5, col="grey", fillColor = "#ccebc5",
