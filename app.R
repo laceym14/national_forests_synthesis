@@ -105,7 +105,7 @@ server <- function(input, output) {
 
   # popup layout
   pop_up_layout <- paste(sep = "<br/>",
-                         paste0("<b>" ,mergenf$NFSLANDU_2, "</b>"),
+                         paste0("<h3><b>" ,mergenf$NFSLANDU_2, "</b></h3>"),
                          paste0("<b>Number of ESA Listed Species in National Forest: </b>", mergenf$NUM_SP),
                          paste0("<img style=max-height:200px;max-width:300px; src=", mergenf$IMG, "' />"),
                          paste0("<i>Image Credit: </i>", mergenf$CRED),
